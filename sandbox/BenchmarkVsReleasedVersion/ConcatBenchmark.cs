@@ -20,6 +20,13 @@ namespace BenchmarkVsReleasedVersion
         int y;
         int z;
 
+        long l;
+        decimal m;
+        DateTime d;
+        Guid g;
+        TimeSpan t;
+
+
         public ConcatBenchmark()
         {
             a = int.Parse("000");
@@ -28,6 +35,26 @@ namespace BenchmarkVsReleasedVersion
             x = int.Parse("333");
             y = int.Parse("444");
             z = int.Parse("555");
+
+            l = long.Parse("9876543210");
+            m = decimal.Parse("9876543210");
+            d = DateTime.Now;
+            g = Guid.NewGuid();
+            t = TimeSpan.FromMilliseconds(12345.6789);
+        }
+
+        [BenchmarkCategory("TwoParams"), Benchmark(Baseline = true)]
+        public string TwoParamsConcat_()
+        {
+            return ZString
+                .Concat("x:", x);
+        }
+
+        [BenchmarkCategory("TwoParams"), Benchmark]
+        public string TwoParamsConcatN()
+        {
+            return NewZString::Cysharp.Text.ZString
+                .Concat("x:", x);
         }
 
         [BenchmarkCategory("FourParams"), Benchmark(Baseline = true)]
@@ -98,6 +125,20 @@ namespace BenchmarkVsReleasedVersion
         {
             return NewZString::Cysharp.Text.ZString
                 .Concat("a:", a, " b:", b, " c:", c, " x:", x, " y:", y, " z:", z);
+        }
+
+        [BenchmarkCategory("ManyTypes"), Benchmark(Baseline = true)]
+        public string ManyTypes_()
+        {
+            return ZString
+                .Concat("a:", a, " l:", l, " m:", m, " d:", d, " g:", g, " t:", t);
+        }
+
+        [BenchmarkCategory("ManyTypes"), Benchmark]
+        public string ManyTypesN()
+        {
+            return NewZString::Cysharp.Text.ZString
+                .Concat("a:", a, " l:", l, " m:", m, " d:", d, " g:", g, " t:", t);
         }
     }
 }

@@ -4,27 +4,90 @@ namespace Cysharp.Text
 {
     public static partial class ZString
     {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static void ConcatInternal<T>(ref Utf16ValueStringBuilder sb, T arg)
+        {
+            if (typeof(T) == typeof(string))
+            {
+                if (arg != null)
+                {
+                    sb.Append(Unsafe.As<string>(arg));
+                }
+            }
+#if true
+            else if (typeof(T) == typeof(System.Byte))
+            {
+                sb.Append(arg);
+            }
+            else if (typeof(T) == typeof(System.DateTime))
+            {
+                sb.Append(arg);
+            }
+            else if (typeof(T) == typeof(System.DateTimeOffset))
+            {
+                sb.Append(arg);
+            }
+            else if (typeof(T) == typeof(System.Decimal))
+            {
+                sb.Append(arg);
+            }
+            else if (typeof(T) == typeof(System.Double))
+            {
+                sb.Append(arg);
+            }
+            else if (typeof(T) == typeof(System.Int16))
+            {
+                sb.Append(arg);
+            }
+            else if (typeof(T) == typeof(System.Int32))
+            {
+                sb.Append(arg);
+            }
+            else if (typeof(T) == typeof(System.Int64))
+            {
+                sb.Append(arg);
+            }
+            else if (typeof(T) == typeof(System.SByte))
+            {
+                sb.Append(arg);
+            }
+            else if (typeof(T) == typeof(System.Single))
+            {
+                sb.Append(arg);
+            }
+            else if (typeof(T) == typeof(System.TimeSpan))
+            {
+                sb.Append(arg);
+            }
+            else if (typeof(T) == typeof(System.UInt16))
+            {
+                sb.Append(arg);
+            }
+            else if (typeof(T) == typeof(System.UInt32))
+            {
+                sb.Append(arg);
+            }
+            else if (typeof(T) == typeof(System.UInt64))
+            {
+                sb.Append(arg);
+            }
+            else if (typeof(T) == typeof(System.Guid))
+            {
+                sb.Append(arg);
+            }
+#endif
+            else
+            {
+                sb.Append(arg);
+            }
+        }
         /// <summary>Concatenates the string representation of some specified objects.</summary>
         public static string Concat<T1>(T1 arg1)
         {
             var sb = new Utf16ValueStringBuilder(true);
             try
             {
-                if (typeof(T1) == typeof(string))
-                {
-                    if(arg1 != null)
-                    {
-                        sb.Append(Unsafe.As<T1, string>(ref arg1));
-                    }
-                }
-                else if (typeof(T1) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T1, int>(ref arg1));
-                }
-                else
-                {
-                    sb.Append(arg1);
-                }
+                    ConcatInternal(ref sb, arg1);
 
                 return sb.ToString();
             }
@@ -40,37 +103,9 @@ namespace Cysharp.Text
             var sb = new Utf16ValueStringBuilder(true);
             try
             {
-                if (typeof(T1) == typeof(string))
-                {
-                    if(arg1 != null)
-                    {
-                        sb.Append(Unsafe.As<T1, string>(ref arg1));
-                    }
-                }
-                else if (typeof(T1) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T1, int>(ref arg1));
-                }
-                else
-                {
-                    sb.Append(arg1);
-                }
+                    ConcatInternal(ref sb, arg1);
 
-                if (typeof(T2) == typeof(string))
-                {
-                    if(arg2 != null)
-                    {
-                        sb.Append(Unsafe.As<T2, string>(ref arg2));
-                    }
-                }
-                else if (typeof(T2) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T2, int>(ref arg2));
-                }
-                else
-                {
-                    sb.Append(arg2);
-                }
+                    ConcatInternal(ref sb, arg2);
 
                 return sb.ToString();
             }
@@ -86,53 +121,11 @@ namespace Cysharp.Text
             var sb = new Utf16ValueStringBuilder(true);
             try
             {
-                if (typeof(T1) == typeof(string))
-                {
-                    if(arg1 != null)
-                    {
-                        sb.Append(Unsafe.As<T1, string>(ref arg1));
-                    }
-                }
-                else if (typeof(T1) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T1, int>(ref arg1));
-                }
-                else
-                {
-                    sb.Append(arg1);
-                }
+                    ConcatInternal(ref sb, arg1);
 
-                if (typeof(T2) == typeof(string))
-                {
-                    if(arg2 != null)
-                    {
-                        sb.Append(Unsafe.As<T2, string>(ref arg2));
-                    }
-                }
-                else if (typeof(T2) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T2, int>(ref arg2));
-                }
-                else
-                {
-                    sb.Append(arg2);
-                }
+                    ConcatInternal(ref sb, arg2);
 
-                if (typeof(T3) == typeof(string))
-                {
-                    if(arg3 != null)
-                    {
-                        sb.Append(Unsafe.As<T3, string>(ref arg3));
-                    }
-                }
-                else if (typeof(T3) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T3, int>(ref arg3));
-                }
-                else
-                {
-                    sb.Append(arg3);
-                }
+                    ConcatInternal(ref sb, arg3);
 
                 return sb.ToString();
             }
@@ -148,69 +141,13 @@ namespace Cysharp.Text
             var sb = new Utf16ValueStringBuilder(true);
             try
             {
-                if (typeof(T1) == typeof(string))
-                {
-                    if(arg1 != null)
-                    {
-                        sb.Append(Unsafe.As<T1, string>(ref arg1));
-                    }
-                }
-                else if (typeof(T1) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T1, int>(ref arg1));
-                }
-                else
-                {
-                    sb.Append(arg1);
-                }
+                    ConcatInternal(ref sb, arg1);
 
-                if (typeof(T2) == typeof(string))
-                {
-                    if(arg2 != null)
-                    {
-                        sb.Append(Unsafe.As<T2, string>(ref arg2));
-                    }
-                }
-                else if (typeof(T2) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T2, int>(ref arg2));
-                }
-                else
-                {
-                    sb.Append(arg2);
-                }
+                    ConcatInternal(ref sb, arg2);
 
-                if (typeof(T3) == typeof(string))
-                {
-                    if(arg3 != null)
-                    {
-                        sb.Append(Unsafe.As<T3, string>(ref arg3));
-                    }
-                }
-                else if (typeof(T3) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T3, int>(ref arg3));
-                }
-                else
-                {
-                    sb.Append(arg3);
-                }
+                    ConcatInternal(ref sb, arg3);
 
-                if (typeof(T4) == typeof(string))
-                {
-                    if(arg4 != null)
-                    {
-                        sb.Append(Unsafe.As<T4, string>(ref arg4));
-                    }
-                }
-                else if (typeof(T4) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T4, int>(ref arg4));
-                }
-                else
-                {
-                    sb.Append(arg4);
-                }
+                    ConcatInternal(ref sb, arg4);
 
                 return sb.ToString();
             }
@@ -226,85 +163,15 @@ namespace Cysharp.Text
             var sb = new Utf16ValueStringBuilder(true);
             try
             {
-                if (typeof(T1) == typeof(string))
-                {
-                    if(arg1 != null)
-                    {
-                        sb.Append(Unsafe.As<T1, string>(ref arg1));
-                    }
-                }
-                else if (typeof(T1) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T1, int>(ref arg1));
-                }
-                else
-                {
-                    sb.Append(arg1);
-                }
+                    ConcatInternal(ref sb, arg1);
 
-                if (typeof(T2) == typeof(string))
-                {
-                    if(arg2 != null)
-                    {
-                        sb.Append(Unsafe.As<T2, string>(ref arg2));
-                    }
-                }
-                else if (typeof(T2) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T2, int>(ref arg2));
-                }
-                else
-                {
-                    sb.Append(arg2);
-                }
+                    ConcatInternal(ref sb, arg2);
 
-                if (typeof(T3) == typeof(string))
-                {
-                    if(arg3 != null)
-                    {
-                        sb.Append(Unsafe.As<T3, string>(ref arg3));
-                    }
-                }
-                else if (typeof(T3) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T3, int>(ref arg3));
-                }
-                else
-                {
-                    sb.Append(arg3);
-                }
+                    ConcatInternal(ref sb, arg3);
 
-                if (typeof(T4) == typeof(string))
-                {
-                    if(arg4 != null)
-                    {
-                        sb.Append(Unsafe.As<T4, string>(ref arg4));
-                    }
-                }
-                else if (typeof(T4) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T4, int>(ref arg4));
-                }
-                else
-                {
-                    sb.Append(arg4);
-                }
+                    ConcatInternal(ref sb, arg4);
 
-                if (typeof(T5) == typeof(string))
-                {
-                    if(arg5 != null)
-                    {
-                        sb.Append(Unsafe.As<T5, string>(ref arg5));
-                    }
-                }
-                else if (typeof(T5) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T5, int>(ref arg5));
-                }
-                else
-                {
-                    sb.Append(arg5);
-                }
+                    ConcatInternal(ref sb, arg5);
 
                 return sb.ToString();
             }
@@ -320,101 +187,17 @@ namespace Cysharp.Text
             var sb = new Utf16ValueStringBuilder(true);
             try
             {
-                if (typeof(T1) == typeof(string))
-                {
-                    if(arg1 != null)
-                    {
-                        sb.Append(Unsafe.As<T1, string>(ref arg1));
-                    }
-                }
-                else if (typeof(T1) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T1, int>(ref arg1));
-                }
-                else
-                {
-                    sb.Append(arg1);
-                }
+                    ConcatInternal(ref sb, arg1);
 
-                if (typeof(T2) == typeof(string))
-                {
-                    if(arg2 != null)
-                    {
-                        sb.Append(Unsafe.As<T2, string>(ref arg2));
-                    }
-                }
-                else if (typeof(T2) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T2, int>(ref arg2));
-                }
-                else
-                {
-                    sb.Append(arg2);
-                }
+                    ConcatInternal(ref sb, arg2);
 
-                if (typeof(T3) == typeof(string))
-                {
-                    if(arg3 != null)
-                    {
-                        sb.Append(Unsafe.As<T3, string>(ref arg3));
-                    }
-                }
-                else if (typeof(T3) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T3, int>(ref arg3));
-                }
-                else
-                {
-                    sb.Append(arg3);
-                }
+                    ConcatInternal(ref sb, arg3);
 
-                if (typeof(T4) == typeof(string))
-                {
-                    if(arg4 != null)
-                    {
-                        sb.Append(Unsafe.As<T4, string>(ref arg4));
-                    }
-                }
-                else if (typeof(T4) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T4, int>(ref arg4));
-                }
-                else
-                {
-                    sb.Append(arg4);
-                }
+                    ConcatInternal(ref sb, arg4);
 
-                if (typeof(T5) == typeof(string))
-                {
-                    if(arg5 != null)
-                    {
-                        sb.Append(Unsafe.As<T5, string>(ref arg5));
-                    }
-                }
-                else if (typeof(T5) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T5, int>(ref arg5));
-                }
-                else
-                {
-                    sb.Append(arg5);
-                }
+                    ConcatInternal(ref sb, arg5);
 
-                if (typeof(T6) == typeof(string))
-                {
-                    if(arg6 != null)
-                    {
-                        sb.Append(Unsafe.As<T6, string>(ref arg6));
-                    }
-                }
-                else if (typeof(T6) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T6, int>(ref arg6));
-                }
-                else
-                {
-                    sb.Append(arg6);
-                }
+                    ConcatInternal(ref sb, arg6);
 
                 return sb.ToString();
             }
@@ -430,117 +213,19 @@ namespace Cysharp.Text
             var sb = new Utf16ValueStringBuilder(true);
             try
             {
-                if (typeof(T1) == typeof(string))
-                {
-                    if(arg1 != null)
-                    {
-                        sb.Append(Unsafe.As<T1, string>(ref arg1));
-                    }
-                }
-                else if (typeof(T1) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T1, int>(ref arg1));
-                }
-                else
-                {
-                    sb.Append(arg1);
-                }
+                    ConcatInternal(ref sb, arg1);
 
-                if (typeof(T2) == typeof(string))
-                {
-                    if(arg2 != null)
-                    {
-                        sb.Append(Unsafe.As<T2, string>(ref arg2));
-                    }
-                }
-                else if (typeof(T2) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T2, int>(ref arg2));
-                }
-                else
-                {
-                    sb.Append(arg2);
-                }
+                    ConcatInternal(ref sb, arg2);
 
-                if (typeof(T3) == typeof(string))
-                {
-                    if(arg3 != null)
-                    {
-                        sb.Append(Unsafe.As<T3, string>(ref arg3));
-                    }
-                }
-                else if (typeof(T3) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T3, int>(ref arg3));
-                }
-                else
-                {
-                    sb.Append(arg3);
-                }
+                    ConcatInternal(ref sb, arg3);
 
-                if (typeof(T4) == typeof(string))
-                {
-                    if(arg4 != null)
-                    {
-                        sb.Append(Unsafe.As<T4, string>(ref arg4));
-                    }
-                }
-                else if (typeof(T4) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T4, int>(ref arg4));
-                }
-                else
-                {
-                    sb.Append(arg4);
-                }
+                    ConcatInternal(ref sb, arg4);
 
-                if (typeof(T5) == typeof(string))
-                {
-                    if(arg5 != null)
-                    {
-                        sb.Append(Unsafe.As<T5, string>(ref arg5));
-                    }
-                }
-                else if (typeof(T5) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T5, int>(ref arg5));
-                }
-                else
-                {
-                    sb.Append(arg5);
-                }
+                    ConcatInternal(ref sb, arg5);
 
-                if (typeof(T6) == typeof(string))
-                {
-                    if(arg6 != null)
-                    {
-                        sb.Append(Unsafe.As<T6, string>(ref arg6));
-                    }
-                }
-                else if (typeof(T6) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T6, int>(ref arg6));
-                }
-                else
-                {
-                    sb.Append(arg6);
-                }
+                    ConcatInternal(ref sb, arg6);
 
-                if (typeof(T7) == typeof(string))
-                {
-                    if(arg7 != null)
-                    {
-                        sb.Append(Unsafe.As<T7, string>(ref arg7));
-                    }
-                }
-                else if (typeof(T7) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T7, int>(ref arg7));
-                }
-                else
-                {
-                    sb.Append(arg7);
-                }
+                    ConcatInternal(ref sb, arg7);
 
                 return sb.ToString();
             }
@@ -556,133 +241,21 @@ namespace Cysharp.Text
             var sb = new Utf16ValueStringBuilder(true);
             try
             {
-                if (typeof(T1) == typeof(string))
-                {
-                    if(arg1 != null)
-                    {
-                        sb.Append(Unsafe.As<T1, string>(ref arg1));
-                    }
-                }
-                else if (typeof(T1) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T1, int>(ref arg1));
-                }
-                else
-                {
-                    sb.Append(arg1);
-                }
+                    ConcatInternal(ref sb, arg1);
 
-                if (typeof(T2) == typeof(string))
-                {
-                    if(arg2 != null)
-                    {
-                        sb.Append(Unsafe.As<T2, string>(ref arg2));
-                    }
-                }
-                else if (typeof(T2) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T2, int>(ref arg2));
-                }
-                else
-                {
-                    sb.Append(arg2);
-                }
+                    ConcatInternal(ref sb, arg2);
 
-                if (typeof(T3) == typeof(string))
-                {
-                    if(arg3 != null)
-                    {
-                        sb.Append(Unsafe.As<T3, string>(ref arg3));
-                    }
-                }
-                else if (typeof(T3) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T3, int>(ref arg3));
-                }
-                else
-                {
-                    sb.Append(arg3);
-                }
+                    ConcatInternal(ref sb, arg3);
 
-                if (typeof(T4) == typeof(string))
-                {
-                    if(arg4 != null)
-                    {
-                        sb.Append(Unsafe.As<T4, string>(ref arg4));
-                    }
-                }
-                else if (typeof(T4) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T4, int>(ref arg4));
-                }
-                else
-                {
-                    sb.Append(arg4);
-                }
+                    ConcatInternal(ref sb, arg4);
 
-                if (typeof(T5) == typeof(string))
-                {
-                    if(arg5 != null)
-                    {
-                        sb.Append(Unsafe.As<T5, string>(ref arg5));
-                    }
-                }
-                else if (typeof(T5) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T5, int>(ref arg5));
-                }
-                else
-                {
-                    sb.Append(arg5);
-                }
+                    ConcatInternal(ref sb, arg5);
 
-                if (typeof(T6) == typeof(string))
-                {
-                    if(arg6 != null)
-                    {
-                        sb.Append(Unsafe.As<T6, string>(ref arg6));
-                    }
-                }
-                else if (typeof(T6) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T6, int>(ref arg6));
-                }
-                else
-                {
-                    sb.Append(arg6);
-                }
+                    ConcatInternal(ref sb, arg6);
 
-                if (typeof(T7) == typeof(string))
-                {
-                    if(arg7 != null)
-                    {
-                        sb.Append(Unsafe.As<T7, string>(ref arg7));
-                    }
-                }
-                else if (typeof(T7) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T7, int>(ref arg7));
-                }
-                else
-                {
-                    sb.Append(arg7);
-                }
+                    ConcatInternal(ref sb, arg7);
 
-                if (typeof(T8) == typeof(string))
-                {
-                    if(arg8 != null)
-                    {
-                        sb.Append(Unsafe.As<T8, string>(ref arg8));
-                    }
-                }
-                else if (typeof(T8) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T8, int>(ref arg8));
-                }
-                else
-                {
-                    sb.Append(arg8);
-                }
+                    ConcatInternal(ref sb, arg8);
 
                 return sb.ToString();
             }
@@ -698,149 +271,23 @@ namespace Cysharp.Text
             var sb = new Utf16ValueStringBuilder(true);
             try
             {
-                if (typeof(T1) == typeof(string))
-                {
-                    if(arg1 != null)
-                    {
-                        sb.Append(Unsafe.As<T1, string>(ref arg1));
-                    }
-                }
-                else if (typeof(T1) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T1, int>(ref arg1));
-                }
-                else
-                {
-                    sb.Append(arg1);
-                }
+                    ConcatInternal(ref sb, arg1);
 
-                if (typeof(T2) == typeof(string))
-                {
-                    if(arg2 != null)
-                    {
-                        sb.Append(Unsafe.As<T2, string>(ref arg2));
-                    }
-                }
-                else if (typeof(T2) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T2, int>(ref arg2));
-                }
-                else
-                {
-                    sb.Append(arg2);
-                }
+                    ConcatInternal(ref sb, arg2);
 
-                if (typeof(T3) == typeof(string))
-                {
-                    if(arg3 != null)
-                    {
-                        sb.Append(Unsafe.As<T3, string>(ref arg3));
-                    }
-                }
-                else if (typeof(T3) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T3, int>(ref arg3));
-                }
-                else
-                {
-                    sb.Append(arg3);
-                }
+                    ConcatInternal(ref sb, arg3);
 
-                if (typeof(T4) == typeof(string))
-                {
-                    if(arg4 != null)
-                    {
-                        sb.Append(Unsafe.As<T4, string>(ref arg4));
-                    }
-                }
-                else if (typeof(T4) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T4, int>(ref arg4));
-                }
-                else
-                {
-                    sb.Append(arg4);
-                }
+                    ConcatInternal(ref sb, arg4);
 
-                if (typeof(T5) == typeof(string))
-                {
-                    if(arg5 != null)
-                    {
-                        sb.Append(Unsafe.As<T5, string>(ref arg5));
-                    }
-                }
-                else if (typeof(T5) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T5, int>(ref arg5));
-                }
-                else
-                {
-                    sb.Append(arg5);
-                }
+                    ConcatInternal(ref sb, arg5);
 
-                if (typeof(T6) == typeof(string))
-                {
-                    if(arg6 != null)
-                    {
-                        sb.Append(Unsafe.As<T6, string>(ref arg6));
-                    }
-                }
-                else if (typeof(T6) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T6, int>(ref arg6));
-                }
-                else
-                {
-                    sb.Append(arg6);
-                }
+                    ConcatInternal(ref sb, arg6);
 
-                if (typeof(T7) == typeof(string))
-                {
-                    if(arg7 != null)
-                    {
-                        sb.Append(Unsafe.As<T7, string>(ref arg7));
-                    }
-                }
-                else if (typeof(T7) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T7, int>(ref arg7));
-                }
-                else
-                {
-                    sb.Append(arg7);
-                }
+                    ConcatInternal(ref sb, arg7);
 
-                if (typeof(T8) == typeof(string))
-                {
-                    if(arg8 != null)
-                    {
-                        sb.Append(Unsafe.As<T8, string>(ref arg8));
-                    }
-                }
-                else if (typeof(T8) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T8, int>(ref arg8));
-                }
-                else
-                {
-                    sb.Append(arg8);
-                }
+                    ConcatInternal(ref sb, arg8);
 
-                if (typeof(T9) == typeof(string))
-                {
-                    if(arg9 != null)
-                    {
-                        sb.Append(Unsafe.As<T9, string>(ref arg9));
-                    }
-                }
-                else if (typeof(T9) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T9, int>(ref arg9));
-                }
-                else
-                {
-                    sb.Append(arg9);
-                }
+                    ConcatInternal(ref sb, arg9);
 
                 return sb.ToString();
             }
@@ -856,165 +303,25 @@ namespace Cysharp.Text
             var sb = new Utf16ValueStringBuilder(true);
             try
             {
-                if (typeof(T1) == typeof(string))
-                {
-                    if(arg1 != null)
-                    {
-                        sb.Append(Unsafe.As<T1, string>(ref arg1));
-                    }
-                }
-                else if (typeof(T1) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T1, int>(ref arg1));
-                }
-                else
-                {
-                    sb.Append(arg1);
-                }
+                    ConcatInternal(ref sb, arg1);
 
-                if (typeof(T2) == typeof(string))
-                {
-                    if(arg2 != null)
-                    {
-                        sb.Append(Unsafe.As<T2, string>(ref arg2));
-                    }
-                }
-                else if (typeof(T2) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T2, int>(ref arg2));
-                }
-                else
-                {
-                    sb.Append(arg2);
-                }
+                    ConcatInternal(ref sb, arg2);
 
-                if (typeof(T3) == typeof(string))
-                {
-                    if(arg3 != null)
-                    {
-                        sb.Append(Unsafe.As<T3, string>(ref arg3));
-                    }
-                }
-                else if (typeof(T3) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T3, int>(ref arg3));
-                }
-                else
-                {
-                    sb.Append(arg3);
-                }
+                    ConcatInternal(ref sb, arg3);
 
-                if (typeof(T4) == typeof(string))
-                {
-                    if(arg4 != null)
-                    {
-                        sb.Append(Unsafe.As<T4, string>(ref arg4));
-                    }
-                }
-                else if (typeof(T4) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T4, int>(ref arg4));
-                }
-                else
-                {
-                    sb.Append(arg4);
-                }
+                    ConcatInternal(ref sb, arg4);
 
-                if (typeof(T5) == typeof(string))
-                {
-                    if(arg5 != null)
-                    {
-                        sb.Append(Unsafe.As<T5, string>(ref arg5));
-                    }
-                }
-                else if (typeof(T5) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T5, int>(ref arg5));
-                }
-                else
-                {
-                    sb.Append(arg5);
-                }
+                    ConcatInternal(ref sb, arg5);
 
-                if (typeof(T6) == typeof(string))
-                {
-                    if(arg6 != null)
-                    {
-                        sb.Append(Unsafe.As<T6, string>(ref arg6));
-                    }
-                }
-                else if (typeof(T6) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T6, int>(ref arg6));
-                }
-                else
-                {
-                    sb.Append(arg6);
-                }
+                    ConcatInternal(ref sb, arg6);
 
-                if (typeof(T7) == typeof(string))
-                {
-                    if(arg7 != null)
-                    {
-                        sb.Append(Unsafe.As<T7, string>(ref arg7));
-                    }
-                }
-                else if (typeof(T7) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T7, int>(ref arg7));
-                }
-                else
-                {
-                    sb.Append(arg7);
-                }
+                    ConcatInternal(ref sb, arg7);
 
-                if (typeof(T8) == typeof(string))
-                {
-                    if(arg8 != null)
-                    {
-                        sb.Append(Unsafe.As<T8, string>(ref arg8));
-                    }
-                }
-                else if (typeof(T8) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T8, int>(ref arg8));
-                }
-                else
-                {
-                    sb.Append(arg8);
-                }
+                    ConcatInternal(ref sb, arg8);
 
-                if (typeof(T9) == typeof(string))
-                {
-                    if(arg9 != null)
-                    {
-                        sb.Append(Unsafe.As<T9, string>(ref arg9));
-                    }
-                }
-                else if (typeof(T9) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T9, int>(ref arg9));
-                }
-                else
-                {
-                    sb.Append(arg9);
-                }
+                    ConcatInternal(ref sb, arg9);
 
-                if (typeof(T10) == typeof(string))
-                {
-                    if(arg10 != null)
-                    {
-                        sb.Append(Unsafe.As<T10, string>(ref arg10));
-                    }
-                }
-                else if (typeof(T10) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T10, int>(ref arg10));
-                }
-                else
-                {
-                    sb.Append(arg10);
-                }
+                    ConcatInternal(ref sb, arg10);
 
                 return sb.ToString();
             }
@@ -1030,181 +337,27 @@ namespace Cysharp.Text
             var sb = new Utf16ValueStringBuilder(true);
             try
             {
-                if (typeof(T1) == typeof(string))
-                {
-                    if(arg1 != null)
-                    {
-                        sb.Append(Unsafe.As<T1, string>(ref arg1));
-                    }
-                }
-                else if (typeof(T1) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T1, int>(ref arg1));
-                }
-                else
-                {
-                    sb.Append(arg1);
-                }
+                    ConcatInternal(ref sb, arg1);
 
-                if (typeof(T2) == typeof(string))
-                {
-                    if(arg2 != null)
-                    {
-                        sb.Append(Unsafe.As<T2, string>(ref arg2));
-                    }
-                }
-                else if (typeof(T2) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T2, int>(ref arg2));
-                }
-                else
-                {
-                    sb.Append(arg2);
-                }
+                    ConcatInternal(ref sb, arg2);
 
-                if (typeof(T3) == typeof(string))
-                {
-                    if(arg3 != null)
-                    {
-                        sb.Append(Unsafe.As<T3, string>(ref arg3));
-                    }
-                }
-                else if (typeof(T3) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T3, int>(ref arg3));
-                }
-                else
-                {
-                    sb.Append(arg3);
-                }
+                    ConcatInternal(ref sb, arg3);
 
-                if (typeof(T4) == typeof(string))
-                {
-                    if(arg4 != null)
-                    {
-                        sb.Append(Unsafe.As<T4, string>(ref arg4));
-                    }
-                }
-                else if (typeof(T4) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T4, int>(ref arg4));
-                }
-                else
-                {
-                    sb.Append(arg4);
-                }
+                    ConcatInternal(ref sb, arg4);
 
-                if (typeof(T5) == typeof(string))
-                {
-                    if(arg5 != null)
-                    {
-                        sb.Append(Unsafe.As<T5, string>(ref arg5));
-                    }
-                }
-                else if (typeof(T5) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T5, int>(ref arg5));
-                }
-                else
-                {
-                    sb.Append(arg5);
-                }
+                    ConcatInternal(ref sb, arg5);
 
-                if (typeof(T6) == typeof(string))
-                {
-                    if(arg6 != null)
-                    {
-                        sb.Append(Unsafe.As<T6, string>(ref arg6));
-                    }
-                }
-                else if (typeof(T6) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T6, int>(ref arg6));
-                }
-                else
-                {
-                    sb.Append(arg6);
-                }
+                    ConcatInternal(ref sb, arg6);
 
-                if (typeof(T7) == typeof(string))
-                {
-                    if(arg7 != null)
-                    {
-                        sb.Append(Unsafe.As<T7, string>(ref arg7));
-                    }
-                }
-                else if (typeof(T7) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T7, int>(ref arg7));
-                }
-                else
-                {
-                    sb.Append(arg7);
-                }
+                    ConcatInternal(ref sb, arg7);
 
-                if (typeof(T8) == typeof(string))
-                {
-                    if(arg8 != null)
-                    {
-                        sb.Append(Unsafe.As<T8, string>(ref arg8));
-                    }
-                }
-                else if (typeof(T8) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T8, int>(ref arg8));
-                }
-                else
-                {
-                    sb.Append(arg8);
-                }
+                    ConcatInternal(ref sb, arg8);
 
-                if (typeof(T9) == typeof(string))
-                {
-                    if(arg9 != null)
-                    {
-                        sb.Append(Unsafe.As<T9, string>(ref arg9));
-                    }
-                }
-                else if (typeof(T9) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T9, int>(ref arg9));
-                }
-                else
-                {
-                    sb.Append(arg9);
-                }
+                    ConcatInternal(ref sb, arg9);
 
-                if (typeof(T10) == typeof(string))
-                {
-                    if(arg10 != null)
-                    {
-                        sb.Append(Unsafe.As<T10, string>(ref arg10));
-                    }
-                }
-                else if (typeof(T10) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T10, int>(ref arg10));
-                }
-                else
-                {
-                    sb.Append(arg10);
-                }
+                    ConcatInternal(ref sb, arg10);
 
-                if (typeof(T11) == typeof(string))
-                {
-                    if(arg11 != null)
-                    {
-                        sb.Append(Unsafe.As<T11, string>(ref arg11));
-                    }
-                }
-                else if (typeof(T11) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T11, int>(ref arg11));
-                }
-                else
-                {
-                    sb.Append(arg11);
-                }
+                    ConcatInternal(ref sb, arg11);
 
                 return sb.ToString();
             }
@@ -1220,197 +373,29 @@ namespace Cysharp.Text
             var sb = new Utf16ValueStringBuilder(true);
             try
             {
-                if (typeof(T1) == typeof(string))
-                {
-                    if(arg1 != null)
-                    {
-                        sb.Append(Unsafe.As<T1, string>(ref arg1));
-                    }
-                }
-                else if (typeof(T1) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T1, int>(ref arg1));
-                }
-                else
-                {
-                    sb.Append(arg1);
-                }
+                    ConcatInternal(ref sb, arg1);
 
-                if (typeof(T2) == typeof(string))
-                {
-                    if(arg2 != null)
-                    {
-                        sb.Append(Unsafe.As<T2, string>(ref arg2));
-                    }
-                }
-                else if (typeof(T2) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T2, int>(ref arg2));
-                }
-                else
-                {
-                    sb.Append(arg2);
-                }
+                    ConcatInternal(ref sb, arg2);
 
-                if (typeof(T3) == typeof(string))
-                {
-                    if(arg3 != null)
-                    {
-                        sb.Append(Unsafe.As<T3, string>(ref arg3));
-                    }
-                }
-                else if (typeof(T3) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T3, int>(ref arg3));
-                }
-                else
-                {
-                    sb.Append(arg3);
-                }
+                    ConcatInternal(ref sb, arg3);
 
-                if (typeof(T4) == typeof(string))
-                {
-                    if(arg4 != null)
-                    {
-                        sb.Append(Unsafe.As<T4, string>(ref arg4));
-                    }
-                }
-                else if (typeof(T4) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T4, int>(ref arg4));
-                }
-                else
-                {
-                    sb.Append(arg4);
-                }
+                    ConcatInternal(ref sb, arg4);
 
-                if (typeof(T5) == typeof(string))
-                {
-                    if(arg5 != null)
-                    {
-                        sb.Append(Unsafe.As<T5, string>(ref arg5));
-                    }
-                }
-                else if (typeof(T5) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T5, int>(ref arg5));
-                }
-                else
-                {
-                    sb.Append(arg5);
-                }
+                    ConcatInternal(ref sb, arg5);
 
-                if (typeof(T6) == typeof(string))
-                {
-                    if(arg6 != null)
-                    {
-                        sb.Append(Unsafe.As<T6, string>(ref arg6));
-                    }
-                }
-                else if (typeof(T6) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T6, int>(ref arg6));
-                }
-                else
-                {
-                    sb.Append(arg6);
-                }
+                    ConcatInternal(ref sb, arg6);
 
-                if (typeof(T7) == typeof(string))
-                {
-                    if(arg7 != null)
-                    {
-                        sb.Append(Unsafe.As<T7, string>(ref arg7));
-                    }
-                }
-                else if (typeof(T7) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T7, int>(ref arg7));
-                }
-                else
-                {
-                    sb.Append(arg7);
-                }
+                    ConcatInternal(ref sb, arg7);
 
-                if (typeof(T8) == typeof(string))
-                {
-                    if(arg8 != null)
-                    {
-                        sb.Append(Unsafe.As<T8, string>(ref arg8));
-                    }
-                }
-                else if (typeof(T8) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T8, int>(ref arg8));
-                }
-                else
-                {
-                    sb.Append(arg8);
-                }
+                    ConcatInternal(ref sb, arg8);
 
-                if (typeof(T9) == typeof(string))
-                {
-                    if(arg9 != null)
-                    {
-                        sb.Append(Unsafe.As<T9, string>(ref arg9));
-                    }
-                }
-                else if (typeof(T9) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T9, int>(ref arg9));
-                }
-                else
-                {
-                    sb.Append(arg9);
-                }
+                    ConcatInternal(ref sb, arg9);
 
-                if (typeof(T10) == typeof(string))
-                {
-                    if(arg10 != null)
-                    {
-                        sb.Append(Unsafe.As<T10, string>(ref arg10));
-                    }
-                }
-                else if (typeof(T10) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T10, int>(ref arg10));
-                }
-                else
-                {
-                    sb.Append(arg10);
-                }
+                    ConcatInternal(ref sb, arg10);
 
-                if (typeof(T11) == typeof(string))
-                {
-                    if(arg11 != null)
-                    {
-                        sb.Append(Unsafe.As<T11, string>(ref arg11));
-                    }
-                }
-                else if (typeof(T11) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T11, int>(ref arg11));
-                }
-                else
-                {
-                    sb.Append(arg11);
-                }
+                    ConcatInternal(ref sb, arg11);
 
-                if (typeof(T12) == typeof(string))
-                {
-                    if(arg12 != null)
-                    {
-                        sb.Append(Unsafe.As<T12, string>(ref arg12));
-                    }
-                }
-                else if (typeof(T12) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T12, int>(ref arg12));
-                }
-                else
-                {
-                    sb.Append(arg12);
-                }
+                    ConcatInternal(ref sb, arg12);
 
                 return sb.ToString();
             }
@@ -1426,213 +411,31 @@ namespace Cysharp.Text
             var sb = new Utf16ValueStringBuilder(true);
             try
             {
-                if (typeof(T1) == typeof(string))
-                {
-                    if(arg1 != null)
-                    {
-                        sb.Append(Unsafe.As<T1, string>(ref arg1));
-                    }
-                }
-                else if (typeof(T1) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T1, int>(ref arg1));
-                }
-                else
-                {
-                    sb.Append(arg1);
-                }
+                    ConcatInternal(ref sb, arg1);
 
-                if (typeof(T2) == typeof(string))
-                {
-                    if(arg2 != null)
-                    {
-                        sb.Append(Unsafe.As<T2, string>(ref arg2));
-                    }
-                }
-                else if (typeof(T2) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T2, int>(ref arg2));
-                }
-                else
-                {
-                    sb.Append(arg2);
-                }
+                    ConcatInternal(ref sb, arg2);
 
-                if (typeof(T3) == typeof(string))
-                {
-                    if(arg3 != null)
-                    {
-                        sb.Append(Unsafe.As<T3, string>(ref arg3));
-                    }
-                }
-                else if (typeof(T3) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T3, int>(ref arg3));
-                }
-                else
-                {
-                    sb.Append(arg3);
-                }
+                    ConcatInternal(ref sb, arg3);
 
-                if (typeof(T4) == typeof(string))
-                {
-                    if(arg4 != null)
-                    {
-                        sb.Append(Unsafe.As<T4, string>(ref arg4));
-                    }
-                }
-                else if (typeof(T4) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T4, int>(ref arg4));
-                }
-                else
-                {
-                    sb.Append(arg4);
-                }
+                    ConcatInternal(ref sb, arg4);
 
-                if (typeof(T5) == typeof(string))
-                {
-                    if(arg5 != null)
-                    {
-                        sb.Append(Unsafe.As<T5, string>(ref arg5));
-                    }
-                }
-                else if (typeof(T5) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T5, int>(ref arg5));
-                }
-                else
-                {
-                    sb.Append(arg5);
-                }
+                    ConcatInternal(ref sb, arg5);
 
-                if (typeof(T6) == typeof(string))
-                {
-                    if(arg6 != null)
-                    {
-                        sb.Append(Unsafe.As<T6, string>(ref arg6));
-                    }
-                }
-                else if (typeof(T6) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T6, int>(ref arg6));
-                }
-                else
-                {
-                    sb.Append(arg6);
-                }
+                    ConcatInternal(ref sb, arg6);
 
-                if (typeof(T7) == typeof(string))
-                {
-                    if(arg7 != null)
-                    {
-                        sb.Append(Unsafe.As<T7, string>(ref arg7));
-                    }
-                }
-                else if (typeof(T7) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T7, int>(ref arg7));
-                }
-                else
-                {
-                    sb.Append(arg7);
-                }
+                    ConcatInternal(ref sb, arg7);
 
-                if (typeof(T8) == typeof(string))
-                {
-                    if(arg8 != null)
-                    {
-                        sb.Append(Unsafe.As<T8, string>(ref arg8));
-                    }
-                }
-                else if (typeof(T8) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T8, int>(ref arg8));
-                }
-                else
-                {
-                    sb.Append(arg8);
-                }
+                    ConcatInternal(ref sb, arg8);
 
-                if (typeof(T9) == typeof(string))
-                {
-                    if(arg9 != null)
-                    {
-                        sb.Append(Unsafe.As<T9, string>(ref arg9));
-                    }
-                }
-                else if (typeof(T9) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T9, int>(ref arg9));
-                }
-                else
-                {
-                    sb.Append(arg9);
-                }
+                    ConcatInternal(ref sb, arg9);
 
-                if (typeof(T10) == typeof(string))
-                {
-                    if(arg10 != null)
-                    {
-                        sb.Append(Unsafe.As<T10, string>(ref arg10));
-                    }
-                }
-                else if (typeof(T10) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T10, int>(ref arg10));
-                }
-                else
-                {
-                    sb.Append(arg10);
-                }
+                    ConcatInternal(ref sb, arg10);
 
-                if (typeof(T11) == typeof(string))
-                {
-                    if(arg11 != null)
-                    {
-                        sb.Append(Unsafe.As<T11, string>(ref arg11));
-                    }
-                }
-                else if (typeof(T11) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T11, int>(ref arg11));
-                }
-                else
-                {
-                    sb.Append(arg11);
-                }
+                    ConcatInternal(ref sb, arg11);
 
-                if (typeof(T12) == typeof(string))
-                {
-                    if(arg12 != null)
-                    {
-                        sb.Append(Unsafe.As<T12, string>(ref arg12));
-                    }
-                }
-                else if (typeof(T12) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T12, int>(ref arg12));
-                }
-                else
-                {
-                    sb.Append(arg12);
-                }
+                    ConcatInternal(ref sb, arg12);
 
-                if (typeof(T13) == typeof(string))
-                {
-                    if(arg13 != null)
-                    {
-                        sb.Append(Unsafe.As<T13, string>(ref arg13));
-                    }
-                }
-                else if (typeof(T13) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T13, int>(ref arg13));
-                }
-                else
-                {
-                    sb.Append(arg13);
-                }
+                    ConcatInternal(ref sb, arg13);
 
                 return sb.ToString();
             }
@@ -1648,229 +451,33 @@ namespace Cysharp.Text
             var sb = new Utf16ValueStringBuilder(true);
             try
             {
-                if (typeof(T1) == typeof(string))
-                {
-                    if(arg1 != null)
-                    {
-                        sb.Append(Unsafe.As<T1, string>(ref arg1));
-                    }
-                }
-                else if (typeof(T1) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T1, int>(ref arg1));
-                }
-                else
-                {
-                    sb.Append(arg1);
-                }
+                    ConcatInternal(ref sb, arg1);
 
-                if (typeof(T2) == typeof(string))
-                {
-                    if(arg2 != null)
-                    {
-                        sb.Append(Unsafe.As<T2, string>(ref arg2));
-                    }
-                }
-                else if (typeof(T2) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T2, int>(ref arg2));
-                }
-                else
-                {
-                    sb.Append(arg2);
-                }
+                    ConcatInternal(ref sb, arg2);
 
-                if (typeof(T3) == typeof(string))
-                {
-                    if(arg3 != null)
-                    {
-                        sb.Append(Unsafe.As<T3, string>(ref arg3));
-                    }
-                }
-                else if (typeof(T3) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T3, int>(ref arg3));
-                }
-                else
-                {
-                    sb.Append(arg3);
-                }
+                    ConcatInternal(ref sb, arg3);
 
-                if (typeof(T4) == typeof(string))
-                {
-                    if(arg4 != null)
-                    {
-                        sb.Append(Unsafe.As<T4, string>(ref arg4));
-                    }
-                }
-                else if (typeof(T4) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T4, int>(ref arg4));
-                }
-                else
-                {
-                    sb.Append(arg4);
-                }
+                    ConcatInternal(ref sb, arg4);
 
-                if (typeof(T5) == typeof(string))
-                {
-                    if(arg5 != null)
-                    {
-                        sb.Append(Unsafe.As<T5, string>(ref arg5));
-                    }
-                }
-                else if (typeof(T5) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T5, int>(ref arg5));
-                }
-                else
-                {
-                    sb.Append(arg5);
-                }
+                    ConcatInternal(ref sb, arg5);
 
-                if (typeof(T6) == typeof(string))
-                {
-                    if(arg6 != null)
-                    {
-                        sb.Append(Unsafe.As<T6, string>(ref arg6));
-                    }
-                }
-                else if (typeof(T6) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T6, int>(ref arg6));
-                }
-                else
-                {
-                    sb.Append(arg6);
-                }
+                    ConcatInternal(ref sb, arg6);
 
-                if (typeof(T7) == typeof(string))
-                {
-                    if(arg7 != null)
-                    {
-                        sb.Append(Unsafe.As<T7, string>(ref arg7));
-                    }
-                }
-                else if (typeof(T7) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T7, int>(ref arg7));
-                }
-                else
-                {
-                    sb.Append(arg7);
-                }
+                    ConcatInternal(ref sb, arg7);
 
-                if (typeof(T8) == typeof(string))
-                {
-                    if(arg8 != null)
-                    {
-                        sb.Append(Unsafe.As<T8, string>(ref arg8));
-                    }
-                }
-                else if (typeof(T8) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T8, int>(ref arg8));
-                }
-                else
-                {
-                    sb.Append(arg8);
-                }
+                    ConcatInternal(ref sb, arg8);
 
-                if (typeof(T9) == typeof(string))
-                {
-                    if(arg9 != null)
-                    {
-                        sb.Append(Unsafe.As<T9, string>(ref arg9));
-                    }
-                }
-                else if (typeof(T9) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T9, int>(ref arg9));
-                }
-                else
-                {
-                    sb.Append(arg9);
-                }
+                    ConcatInternal(ref sb, arg9);
 
-                if (typeof(T10) == typeof(string))
-                {
-                    if(arg10 != null)
-                    {
-                        sb.Append(Unsafe.As<T10, string>(ref arg10));
-                    }
-                }
-                else if (typeof(T10) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T10, int>(ref arg10));
-                }
-                else
-                {
-                    sb.Append(arg10);
-                }
+                    ConcatInternal(ref sb, arg10);
 
-                if (typeof(T11) == typeof(string))
-                {
-                    if(arg11 != null)
-                    {
-                        sb.Append(Unsafe.As<T11, string>(ref arg11));
-                    }
-                }
-                else if (typeof(T11) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T11, int>(ref arg11));
-                }
-                else
-                {
-                    sb.Append(arg11);
-                }
+                    ConcatInternal(ref sb, arg11);
 
-                if (typeof(T12) == typeof(string))
-                {
-                    if(arg12 != null)
-                    {
-                        sb.Append(Unsafe.As<T12, string>(ref arg12));
-                    }
-                }
-                else if (typeof(T12) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T12, int>(ref arg12));
-                }
-                else
-                {
-                    sb.Append(arg12);
-                }
+                    ConcatInternal(ref sb, arg12);
 
-                if (typeof(T13) == typeof(string))
-                {
-                    if(arg13 != null)
-                    {
-                        sb.Append(Unsafe.As<T13, string>(ref arg13));
-                    }
-                }
-                else if (typeof(T13) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T13, int>(ref arg13));
-                }
-                else
-                {
-                    sb.Append(arg13);
-                }
+                    ConcatInternal(ref sb, arg13);
 
-                if (typeof(T14) == typeof(string))
-                {
-                    if(arg14 != null)
-                    {
-                        sb.Append(Unsafe.As<T14, string>(ref arg14));
-                    }
-                }
-                else if (typeof(T14) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T14, int>(ref arg14));
-                }
-                else
-                {
-                    sb.Append(arg14);
-                }
+                    ConcatInternal(ref sb, arg14);
 
                 return sb.ToString();
             }
@@ -1886,245 +493,35 @@ namespace Cysharp.Text
             var sb = new Utf16ValueStringBuilder(true);
             try
             {
-                if (typeof(T1) == typeof(string))
-                {
-                    if(arg1 != null)
-                    {
-                        sb.Append(Unsafe.As<T1, string>(ref arg1));
-                    }
-                }
-                else if (typeof(T1) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T1, int>(ref arg1));
-                }
-                else
-                {
-                    sb.Append(arg1);
-                }
+                    ConcatInternal(ref sb, arg1);
 
-                if (typeof(T2) == typeof(string))
-                {
-                    if(arg2 != null)
-                    {
-                        sb.Append(Unsafe.As<T2, string>(ref arg2));
-                    }
-                }
-                else if (typeof(T2) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T2, int>(ref arg2));
-                }
-                else
-                {
-                    sb.Append(arg2);
-                }
+                    ConcatInternal(ref sb, arg2);
 
-                if (typeof(T3) == typeof(string))
-                {
-                    if(arg3 != null)
-                    {
-                        sb.Append(Unsafe.As<T3, string>(ref arg3));
-                    }
-                }
-                else if (typeof(T3) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T3, int>(ref arg3));
-                }
-                else
-                {
-                    sb.Append(arg3);
-                }
+                    ConcatInternal(ref sb, arg3);
 
-                if (typeof(T4) == typeof(string))
-                {
-                    if(arg4 != null)
-                    {
-                        sb.Append(Unsafe.As<T4, string>(ref arg4));
-                    }
-                }
-                else if (typeof(T4) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T4, int>(ref arg4));
-                }
-                else
-                {
-                    sb.Append(arg4);
-                }
+                    ConcatInternal(ref sb, arg4);
 
-                if (typeof(T5) == typeof(string))
-                {
-                    if(arg5 != null)
-                    {
-                        sb.Append(Unsafe.As<T5, string>(ref arg5));
-                    }
-                }
-                else if (typeof(T5) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T5, int>(ref arg5));
-                }
-                else
-                {
-                    sb.Append(arg5);
-                }
+                    ConcatInternal(ref sb, arg5);
 
-                if (typeof(T6) == typeof(string))
-                {
-                    if(arg6 != null)
-                    {
-                        sb.Append(Unsafe.As<T6, string>(ref arg6));
-                    }
-                }
-                else if (typeof(T6) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T6, int>(ref arg6));
-                }
-                else
-                {
-                    sb.Append(arg6);
-                }
+                    ConcatInternal(ref sb, arg6);
 
-                if (typeof(T7) == typeof(string))
-                {
-                    if(arg7 != null)
-                    {
-                        sb.Append(Unsafe.As<T7, string>(ref arg7));
-                    }
-                }
-                else if (typeof(T7) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T7, int>(ref arg7));
-                }
-                else
-                {
-                    sb.Append(arg7);
-                }
+                    ConcatInternal(ref sb, arg7);
 
-                if (typeof(T8) == typeof(string))
-                {
-                    if(arg8 != null)
-                    {
-                        sb.Append(Unsafe.As<T8, string>(ref arg8));
-                    }
-                }
-                else if (typeof(T8) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T8, int>(ref arg8));
-                }
-                else
-                {
-                    sb.Append(arg8);
-                }
+                    ConcatInternal(ref sb, arg8);
 
-                if (typeof(T9) == typeof(string))
-                {
-                    if(arg9 != null)
-                    {
-                        sb.Append(Unsafe.As<T9, string>(ref arg9));
-                    }
-                }
-                else if (typeof(T9) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T9, int>(ref arg9));
-                }
-                else
-                {
-                    sb.Append(arg9);
-                }
+                    ConcatInternal(ref sb, arg9);
 
-                if (typeof(T10) == typeof(string))
-                {
-                    if(arg10 != null)
-                    {
-                        sb.Append(Unsafe.As<T10, string>(ref arg10));
-                    }
-                }
-                else if (typeof(T10) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T10, int>(ref arg10));
-                }
-                else
-                {
-                    sb.Append(arg10);
-                }
+                    ConcatInternal(ref sb, arg10);
 
-                if (typeof(T11) == typeof(string))
-                {
-                    if(arg11 != null)
-                    {
-                        sb.Append(Unsafe.As<T11, string>(ref arg11));
-                    }
-                }
-                else if (typeof(T11) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T11, int>(ref arg11));
-                }
-                else
-                {
-                    sb.Append(arg11);
-                }
+                    ConcatInternal(ref sb, arg11);
 
-                if (typeof(T12) == typeof(string))
-                {
-                    if(arg12 != null)
-                    {
-                        sb.Append(Unsafe.As<T12, string>(ref arg12));
-                    }
-                }
-                else if (typeof(T12) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T12, int>(ref arg12));
-                }
-                else
-                {
-                    sb.Append(arg12);
-                }
+                    ConcatInternal(ref sb, arg12);
 
-                if (typeof(T13) == typeof(string))
-                {
-                    if(arg13 != null)
-                    {
-                        sb.Append(Unsafe.As<T13, string>(ref arg13));
-                    }
-                }
-                else if (typeof(T13) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T13, int>(ref arg13));
-                }
-                else
-                {
-                    sb.Append(arg13);
-                }
+                    ConcatInternal(ref sb, arg13);
 
-                if (typeof(T14) == typeof(string))
-                {
-                    if(arg14 != null)
-                    {
-                        sb.Append(Unsafe.As<T14, string>(ref arg14));
-                    }
-                }
-                else if (typeof(T14) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T14, int>(ref arg14));
-                }
-                else
-                {
-                    sb.Append(arg14);
-                }
+                    ConcatInternal(ref sb, arg14);
 
-                if (typeof(T15) == typeof(string))
-                {
-                    if(arg15 != null)
-                    {
-                        sb.Append(Unsafe.As<T15, string>(ref arg15));
-                    }
-                }
-                else if (typeof(T15) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T15, int>(ref arg15));
-                }
-                else
-                {
-                    sb.Append(arg15);
-                }
+                    ConcatInternal(ref sb, arg15);
 
                 return sb.ToString();
             }
@@ -2140,261 +537,37 @@ namespace Cysharp.Text
             var sb = new Utf16ValueStringBuilder(true);
             try
             {
-                if (typeof(T1) == typeof(string))
-                {
-                    if(arg1 != null)
-                    {
-                        sb.Append(Unsafe.As<T1, string>(ref arg1));
-                    }
-                }
-                else if (typeof(T1) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T1, int>(ref arg1));
-                }
-                else
-                {
-                    sb.Append(arg1);
-                }
+                    ConcatInternal(ref sb, arg1);
 
-                if (typeof(T2) == typeof(string))
-                {
-                    if(arg2 != null)
-                    {
-                        sb.Append(Unsafe.As<T2, string>(ref arg2));
-                    }
-                }
-                else if (typeof(T2) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T2, int>(ref arg2));
-                }
-                else
-                {
-                    sb.Append(arg2);
-                }
+                    ConcatInternal(ref sb, arg2);
 
-                if (typeof(T3) == typeof(string))
-                {
-                    if(arg3 != null)
-                    {
-                        sb.Append(Unsafe.As<T3, string>(ref arg3));
-                    }
-                }
-                else if (typeof(T3) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T3, int>(ref arg3));
-                }
-                else
-                {
-                    sb.Append(arg3);
-                }
+                    ConcatInternal(ref sb, arg3);
 
-                if (typeof(T4) == typeof(string))
-                {
-                    if(arg4 != null)
-                    {
-                        sb.Append(Unsafe.As<T4, string>(ref arg4));
-                    }
-                }
-                else if (typeof(T4) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T4, int>(ref arg4));
-                }
-                else
-                {
-                    sb.Append(arg4);
-                }
+                    ConcatInternal(ref sb, arg4);
 
-                if (typeof(T5) == typeof(string))
-                {
-                    if(arg5 != null)
-                    {
-                        sb.Append(Unsafe.As<T5, string>(ref arg5));
-                    }
-                }
-                else if (typeof(T5) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T5, int>(ref arg5));
-                }
-                else
-                {
-                    sb.Append(arg5);
-                }
+                    ConcatInternal(ref sb, arg5);
 
-                if (typeof(T6) == typeof(string))
-                {
-                    if(arg6 != null)
-                    {
-                        sb.Append(Unsafe.As<T6, string>(ref arg6));
-                    }
-                }
-                else if (typeof(T6) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T6, int>(ref arg6));
-                }
-                else
-                {
-                    sb.Append(arg6);
-                }
+                    ConcatInternal(ref sb, arg6);
 
-                if (typeof(T7) == typeof(string))
-                {
-                    if(arg7 != null)
-                    {
-                        sb.Append(Unsafe.As<T7, string>(ref arg7));
-                    }
-                }
-                else if (typeof(T7) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T7, int>(ref arg7));
-                }
-                else
-                {
-                    sb.Append(arg7);
-                }
+                    ConcatInternal(ref sb, arg7);
 
-                if (typeof(T8) == typeof(string))
-                {
-                    if(arg8 != null)
-                    {
-                        sb.Append(Unsafe.As<T8, string>(ref arg8));
-                    }
-                }
-                else if (typeof(T8) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T8, int>(ref arg8));
-                }
-                else
-                {
-                    sb.Append(arg8);
-                }
+                    ConcatInternal(ref sb, arg8);
 
-                if (typeof(T9) == typeof(string))
-                {
-                    if(arg9 != null)
-                    {
-                        sb.Append(Unsafe.As<T9, string>(ref arg9));
-                    }
-                }
-                else if (typeof(T9) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T9, int>(ref arg9));
-                }
-                else
-                {
-                    sb.Append(arg9);
-                }
+                    ConcatInternal(ref sb, arg9);
 
-                if (typeof(T10) == typeof(string))
-                {
-                    if(arg10 != null)
-                    {
-                        sb.Append(Unsafe.As<T10, string>(ref arg10));
-                    }
-                }
-                else if (typeof(T10) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T10, int>(ref arg10));
-                }
-                else
-                {
-                    sb.Append(arg10);
-                }
+                    ConcatInternal(ref sb, arg10);
 
-                if (typeof(T11) == typeof(string))
-                {
-                    if(arg11 != null)
-                    {
-                        sb.Append(Unsafe.As<T11, string>(ref arg11));
-                    }
-                }
-                else if (typeof(T11) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T11, int>(ref arg11));
-                }
-                else
-                {
-                    sb.Append(arg11);
-                }
+                    ConcatInternal(ref sb, arg11);
 
-                if (typeof(T12) == typeof(string))
-                {
-                    if(arg12 != null)
-                    {
-                        sb.Append(Unsafe.As<T12, string>(ref arg12));
-                    }
-                }
-                else if (typeof(T12) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T12, int>(ref arg12));
-                }
-                else
-                {
-                    sb.Append(arg12);
-                }
+                    ConcatInternal(ref sb, arg12);
 
-                if (typeof(T13) == typeof(string))
-                {
-                    if(arg13 != null)
-                    {
-                        sb.Append(Unsafe.As<T13, string>(ref arg13));
-                    }
-                }
-                else if (typeof(T13) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T13, int>(ref arg13));
-                }
-                else
-                {
-                    sb.Append(arg13);
-                }
+                    ConcatInternal(ref sb, arg13);
 
-                if (typeof(T14) == typeof(string))
-                {
-                    if(arg14 != null)
-                    {
-                        sb.Append(Unsafe.As<T14, string>(ref arg14));
-                    }
-                }
-                else if (typeof(T14) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T14, int>(ref arg14));
-                }
-                else
-                {
-                    sb.Append(arg14);
-                }
+                    ConcatInternal(ref sb, arg14);
 
-                if (typeof(T15) == typeof(string))
-                {
-                    if(arg15 != null)
-                    {
-                        sb.Append(Unsafe.As<T15, string>(ref arg15));
-                    }
-                }
-                else if (typeof(T15) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T15, int>(ref arg15));
-                }
-                else
-                {
-                    sb.Append(arg15);
-                }
+                    ConcatInternal(ref sb, arg15);
 
-                if (typeof(T16) == typeof(string))
-                {
-                    if(arg16 != null)
-                    {
-                        sb.Append(Unsafe.As<T16, string>(ref arg16));
-                    }
-                }
-                else if (typeof(T16) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T16, int>(ref arg16));
-                }
-                else
-                {
-                    sb.Append(arg16);
-                }
+                    ConcatInternal(ref sb, arg16);
 
                 return sb.ToString();
             }

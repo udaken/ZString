@@ -11,6 +11,29 @@ namespace Cysharp.Text
 {
     public static partial class ZString
     {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static void ConcatInternal<T>(ref Utf16ValueStringBuilder sb, T arg)
+        {
+            if (typeof(T) == typeof(string))
+            {
+                if (arg != null)
+                {
+                    sb.Append(Unsafe.As<string>(arg));
+                }
+            }
+#if false
+<# foreach(var t in spanFormattables) { #>
+            else if (typeof(T) == typeof(<#= t #>))
+            {
+                sb.Append(arg);
+            }
+<# } #>
+#endif
+            else
+            {
+                sb.Append(arg);
+            }
+        }
 <# for(var i = 1; i <= TypeParamMax; i++) { #>
         /// <summary>Concatenates the string representation of some specified objects.</summary>
         public static string Concat<<#= CreateTypeArgument(i) #>>(<#= CreateParameters(i) #>)
@@ -19,22 +42,7 @@ namespace Cysharp.Text
             try
             {
 <# for(var j = 0; j < i; j++) { #>
-                if (typeof(T<#= j + 1 #>) == typeof(string))
-                {
-                    if(arg<#= j + 1 #> != null)
-                    {
-                        sb.Append(Unsafe.As<T<#= j + 1 #>, string>(ref arg<#= j + 1 #>));
-                    }
-                }
-                else if (typeof(T<#= j + 1 #>) == typeof(int))
-                {
-                    sb.Append(Unsafe.As<T<#= j + 1 #>, int>(ref arg<#= j + 1 #>));
-                }
-                else
-                {
-                    sb.Append(arg<#= j + 1 #>);
-                }
-
+                ConcatInternal(ref sb, arg<#= j + 1 #>);
 <# } #>
                 return sb.ToString();
             }
