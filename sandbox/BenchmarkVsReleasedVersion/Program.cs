@@ -19,7 +19,8 @@ namespace BenchmarkVsReleasedVersion
         public BenchmarkConfig()
         {
             AddDiagnoser(MemoryDiagnoser.Default);
-            AddJob(Job.ShortRun.WithWarmupCount(1).WithIterationCount(1));
+            //AddJob(Job.ShortRun.WithWarmupCount(1).WithIterationCount(1));
+            AddJob(Job.Default);
         }
     }
 

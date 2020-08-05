@@ -2,7 +2,7 @@
 
 namespace Cysharp.Text
 {
-    public partial struct Utf16ValueStringBuilder
+    public unsafe partial struct Utf16ValueStringBuilder
     {
         /// <summary>Appends the string returned by processing a composite format string, each format item is replaced by the string representation of arguments.</summary>
         public void AppendFormat<T1>(string format, T1 arg1)

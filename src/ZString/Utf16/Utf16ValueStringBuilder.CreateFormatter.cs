@@ -1,146 +1,167 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 
 namespace Cysharp.Text
 {
     public partial struct Utf16ValueStringBuilder
     {
-        static object CreateFormatter(Type type)
+        static unsafe void RegisterPrimitives()
         {
-            if (type == typeof(System.SByte))
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            static bool SByteFunc(System.SByte x, Span<char> dest, out int written, ReadOnlySpan<char> format)
             {
-                return new TryFormat<System.SByte>((System.SByte x, Span<char> dest, out int written, ReadOnlySpan<char> format) => format.Length == 0 ? FastNumberWriter.TryWriteInt64(dest, out written, x) : x.TryFormat(dest, out written, format));
+                return format.Length == 0 ? FastNumberWriter.TryWriteInt64(dest, out written, x) : x.TryFormat(dest, out written, format);
             }
-            if (type == typeof(System.Int16))
+            FormatterCache<System.SByte>.TryFormatDelegate = &SByteFunc;
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            static bool Int16Func(System.Int16 x, Span<char> dest, out int written, ReadOnlySpan<char> format)
             {
-                return new TryFormat<System.Int16>((System.Int16 x, Span<char> dest, out int written, ReadOnlySpan<char> format) => format.Length == 0 ? FastNumberWriter.TryWriteInt64(dest, out written, x) : x.TryFormat(dest, out written, format));
+                return format.Length == 0 ? FastNumberWriter.TryWriteInt64(dest, out written, x) : x.TryFormat(dest, out written, format);
             }
-            if (type == typeof(System.Int32))
+            FormatterCache<System.Int16>.TryFormatDelegate = &Int16Func;
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            static bool Int32Func(System.Int32 x, Span<char> dest, out int written, ReadOnlySpan<char> format)
             {
-                return new TryFormat<System.Int32>((System.Int32 x, Span<char> dest, out int written, ReadOnlySpan<char> format) => format.Length == 0 ? FastNumberWriter.TryWriteInt64(dest, out written, x) : x.TryFormat(dest, out written, format));
+                return format.Length == 0 ? FastNumberWriter.TryWriteInt64(dest, out written, x) : x.TryFormat(dest, out written, format);
             }
-            if (type == typeof(System.Int64))
+            FormatterCache<System.Int32>.TryFormatDelegate = &Int32Func;
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            static bool Int64Func(System.Int64 x, Span<char> dest, out int written, ReadOnlySpan<char> format)
             {
-                return new TryFormat<System.Int64>((System.Int64 x, Span<char> dest, out int written, ReadOnlySpan<char> format) => format.Length == 0 ? FastNumberWriter.TryWriteInt64(dest, out written, x) : x.TryFormat(dest, out written, format));
+                return format.Length == 0 ? FastNumberWriter.TryWriteInt64(dest, out written, x) : x.TryFormat(dest, out written, format);
             }
-            if (type == typeof(System.Byte))
+            FormatterCache<System.Int64>.TryFormatDelegate = &Int64Func;
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            static bool ByteFunc(System.Byte x, Span<char> dest, out int written, ReadOnlySpan<char> format)
             {
-                return new TryFormat<System.Byte>((System.Byte x, Span<char> dest, out int written, ReadOnlySpan<char> format) => format.Length == 0 ? FastNumberWriter.TryWriteUInt64(dest, out written, x) : x.TryFormat(dest, out written, format));
+                return format.Length == 0 ? FastNumberWriter.TryWriteUInt64(dest, out written, x) : x.TryFormat(dest, out written, format);
             }
-            if (type == typeof(System.UInt16))
+            FormatterCache<System.Byte>.TryFormatDelegate = &ByteFunc;
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            static bool UInt16Func(System.UInt16 x, Span<char> dest, out int written, ReadOnlySpan<char> format)
             {
-                return new TryFormat<System.UInt16>((System.UInt16 x, Span<char> dest, out int written, ReadOnlySpan<char> format) => format.Length == 0 ? FastNumberWriter.TryWriteUInt64(dest, out written, x) : x.TryFormat(dest, out written, format));
+                return format.Length == 0 ? FastNumberWriter.TryWriteUInt64(dest, out written, x) : x.TryFormat(dest, out written, format);
             }
-            if (type == typeof(System.UInt32))
+            FormatterCache<System.UInt16>.TryFormatDelegate = &UInt16Func;
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            static bool UInt32Func(System.UInt32 x, Span<char> dest, out int written, ReadOnlySpan<char> format)
             {
-                return new TryFormat<System.UInt32>((System.UInt32 x, Span<char> dest, out int written, ReadOnlySpan<char> format) => format.Length == 0 ? FastNumberWriter.TryWriteUInt64(dest, out written, x) : x.TryFormat(dest, out written, format));
+                return format.Length == 0 ? FastNumberWriter.TryWriteUInt64(dest, out written, x) : x.TryFormat(dest, out written, format);
             }
-            if (type == typeof(System.UInt64))
+            FormatterCache<System.UInt32>.TryFormatDelegate = &UInt32Func;
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            static bool UInt64Func(System.UInt64 x, Span<char> dest, out int written, ReadOnlySpan<char> format)
             {
-                return new TryFormat<System.UInt64>((System.UInt64 x, Span<char> dest, out int written, ReadOnlySpan<char> format) => format.Length == 0 ? FastNumberWriter.TryWriteUInt64(dest, out written, x) : x.TryFormat(dest, out written, format));
+                return format.Length == 0 ? FastNumberWriter.TryWriteUInt64(dest, out written, x) : x.TryFormat(dest, out written, format);
             }
-            if (type == typeof(System.Single))
+            FormatterCache<System.UInt64>.TryFormatDelegate = &UInt64Func;
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            static bool SingleFunc(System.Single x, Span<char> dest, out int written, ReadOnlySpan<char> format)
             {
-                return new TryFormat<System.Single>((System.Single x, Span<char> dest, out int written, ReadOnlySpan<char> format) => x.TryFormat(dest, out written, format));
+                return x.TryFormat(dest, out written, format);
             }
-            if (type == typeof(System.Double))
+            FormatterCache<System.Single>.TryFormatDelegate = &SingleFunc;
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            static bool DoubleFunc(System.Double x, Span<char> dest, out int written, ReadOnlySpan<char> format)
             {
-                return new TryFormat<System.Double>((System.Double x, Span<char> dest, out int written, ReadOnlySpan<char> format) => x.TryFormat(dest, out written, format));
+                return x.TryFormat(dest, out written, format);
             }
-            if (type == typeof(System.TimeSpan))
+            FormatterCache<System.Double>.TryFormatDelegate = &DoubleFunc;
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            static bool TimeSpanFunc(System.TimeSpan x, Span<char> dest, out int written, ReadOnlySpan<char> format)
             {
-                return new TryFormat<System.TimeSpan>((System.TimeSpan x, Span<char> dest, out int written, ReadOnlySpan<char> format) => x.TryFormat(dest, out written, format));
+                return x.TryFormat(dest, out written, format);
             }
-            if (type == typeof(System.DateTime))
+            FormatterCache<System.TimeSpan>.TryFormatDelegate = &TimeSpanFunc;
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            static bool DateTimeFunc(System.DateTime x, Span<char> dest, out int written, ReadOnlySpan<char> format)
             {
-                return new TryFormat<System.DateTime>((System.DateTime x, Span<char> dest, out int written, ReadOnlySpan<char> format) => x.TryFormat(dest, out written, format));
+                return x.TryFormat(dest, out written, format);
             }
-            if (type == typeof(System.DateTimeOffset))
+            FormatterCache<System.DateTime>.TryFormatDelegate = &DateTimeFunc;
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            static bool DateTimeOffsetFunc(System.DateTimeOffset x, Span<char> dest, out int written, ReadOnlySpan<char> format)
             {
-                return new TryFormat<System.DateTimeOffset>((System.DateTimeOffset x, Span<char> dest, out int written, ReadOnlySpan<char> format) => x.TryFormat(dest, out written, format));
+                return x.TryFormat(dest, out written, format);
             }
-            if (type == typeof(System.Decimal))
+            FormatterCache<System.DateTimeOffset>.TryFormatDelegate = &DateTimeOffsetFunc;
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            static bool DecimalFunc(System.Decimal x, Span<char> dest, out int written, ReadOnlySpan<char> format)
             {
-                return new TryFormat<System.Decimal>((System.Decimal x, Span<char> dest, out int written, ReadOnlySpan<char> format) => x.TryFormat(dest, out written, format));
+                return x.TryFormat(dest, out written, format);
             }
-            if (type == typeof(System.Guid))
+            FormatterCache<System.Decimal>.TryFormatDelegate = &DecimalFunc;
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            static bool GuidFunc(System.Guid x, Span<char> dest, out int written, ReadOnlySpan<char> format)
             {
-                return new TryFormat<System.Guid>((System.Guid x, Span<char> dest, out int written, ReadOnlySpan<char> format) => x.TryFormat(dest, out written, format));
+                return x.TryFormat(dest, out written, format);
             }
-            if (type == typeof(System.Byte?))
-            {
-                return CreateNullableFormatter<System.Byte>();
-            }
-            if (type == typeof(System.DateTime?))
-            {
-                return CreateNullableFormatter<System.DateTime>();
-            }
-            if (type == typeof(System.DateTimeOffset?))
-            {
-                return CreateNullableFormatter<System.DateTimeOffset>();
-            }
-            if (type == typeof(System.Decimal?))
-            {
-                return CreateNullableFormatter<System.Decimal>();
-            }
-            if (type == typeof(System.Double?))
-            {
-                return CreateNullableFormatter<System.Double>();
-            }
-            if (type == typeof(System.Int16?))
-            {
-                return CreateNullableFormatter<System.Int16>();
-            }
-            if (type == typeof(System.Int32?))
-            {
-                return CreateNullableFormatter<System.Int32>();
-            }
-            if (type == typeof(System.Int64?))
-            {
-                return CreateNullableFormatter<System.Int64>();
-            }
-            if (type == typeof(System.SByte?))
-            {
-                return CreateNullableFormatter<System.SByte>();
-            }
-            if (type == typeof(System.Single?))
-            {
-                return CreateNullableFormatter<System.Single>();
-            }
-            if (type == typeof(System.TimeSpan?))
-            {
-                return CreateNullableFormatter<System.TimeSpan>();
-            }
-            if (type == typeof(System.UInt16?))
-            {
-                return CreateNullableFormatter<System.UInt16>();
-            }
-            if (type == typeof(System.UInt32?))
-            {
-                return CreateNullableFormatter<System.UInt32>();
-            }
-            if (type == typeof(System.UInt64?))
-            {
-                return CreateNullableFormatter<System.UInt64>();
-            }
-            if (type == typeof(System.Guid?))
-            {
-                return CreateNullableFormatter<System.Guid>();
-            }
-            if (type == typeof(System.IntPtr))
+            FormatterCache<System.Guid>.TryFormatDelegate = &GuidFunc;
+
+            FormatterCache<System.Byte?>.TryFormatDelegate = &NullableFormat;
+
+            FormatterCache<System.DateTime?>.TryFormatDelegate = &NullableFormat;
+
+            FormatterCache<System.DateTimeOffset?>.TryFormatDelegate = &NullableFormat;
+
+            FormatterCache<System.Decimal?>.TryFormatDelegate = &NullableFormat;
+
+            FormatterCache<System.Double?>.TryFormatDelegate = &NullableFormat;
+
+            FormatterCache<System.Int16?>.TryFormatDelegate = &NullableFormat;
+
+            FormatterCache<System.Int32?>.TryFormatDelegate = &NullableFormat;
+
+            FormatterCache<System.Int64?>.TryFormatDelegate = &NullableFormat;
+
+            FormatterCache<System.SByte?>.TryFormatDelegate = &NullableFormat;
+
+            FormatterCache<System.Single?>.TryFormatDelegate = &NullableFormat;
+
+            FormatterCache<System.TimeSpan?>.TryFormatDelegate = &NullableFormat;
+
+            FormatterCache<System.UInt16?>.TryFormatDelegate = &NullableFormat;
+
+            FormatterCache<System.UInt32?>.TryFormatDelegate = &NullableFormat;
+
+            FormatterCache<System.UInt64?>.TryFormatDelegate = &NullableFormat;
+
+            FormatterCache<System.Guid?>.TryFormatDelegate = &NullableFormat;
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            static bool IntPtrFunc(System.IntPtr x, Span<char> dest, out int written, ReadOnlySpan<char> format)
             {
                 // ignore format
-                return new TryFormat<System.IntPtr>((System.IntPtr x, Span<char> dest, out int written, ReadOnlySpan<char> _) => System.IntPtr.Size == 4
+                return  System.IntPtr.Size == 4
                     ? x.ToInt32().TryFormat(dest, out written, default)
-                    : x.ToInt64().TryFormat(dest, out written, default));
+                    : x.ToInt64().TryFormat(dest, out written, default);
             }
-            if (type == typeof(System.UIntPtr))
+            FormatterCache<System.IntPtr>.TryFormatDelegate = &IntPtrFunc;
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            static bool UIntPtrFunc(System.UIntPtr x, Span<char> dest, out int written, ReadOnlySpan<char> format)
             {
                 // ignore format
-                return new TryFormat<System.UIntPtr>((System.UIntPtr x, Span<char> dest, out int written, ReadOnlySpan<char> _) => System.UIntPtr.Size == 4
+                return  System.UIntPtr.Size == 4
                     ? x.ToUInt32().TryFormat(dest, out written, default)
-                    : x.ToUInt64().TryFormat(dest, out written, default));
+                    : x.ToUInt64().TryFormat(dest, out written, default);
             }
-            return null;
+            FormatterCache<System.UIntPtr>.TryFormatDelegate = &UIntPtrFunc;
+
         }
     }
 }

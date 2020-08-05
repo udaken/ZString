@@ -18,6 +18,7 @@
         <RepositoryUrl>$(PackageProjectUrl)</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
+      <LangVersion>9.0</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -187,6 +188,7 @@
     <!-- Copy files for Unity -->
     <PropertyGroup>
         <DestinationRoot>$(MSBuildProjectDirectory)\..\ZString.Unity\Assets\Scripts\ZString\</DestinationRoot>
+        <AssemblyName>NewZString</AssemblyName>
     </PropertyGroup>
     <ItemGroup>
         <TargetFiles1 Include="$(MSBuildProjectDirectory)\**\*.cs" Exclude="**\bin\**\*.*;**\obj\**\*.*;_InternalVisibleTo.cs" />

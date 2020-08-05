@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 
 namespace Cysharp.Text
 {
-    public partial struct Utf16ValueStringBuilder : IDisposable, IBufferWriter<char>, IResettableBufferWriter<char>
+    public unsafe partial struct Utf16ValueStringBuilder : IDisposable, IBufferWriter<char>, IResettableBufferWriter<char>
     {
         public delegate bool TryFormat<T>(T value, Span<char> destination, out int charsWritten, ReadOnlySpan<char> format);
 
@@ -32,6 +32,7 @@ namespace Cysharp.Text
                 newLine2 = newLine[1];
                 crlf = true;
             }
+            RegisterPrimitives();
         }
 
         [ThreadStatic]
@@ -232,7 +233,7 @@ namespace Cysharp.Text
         }
 
         /// <summary>Appends the string representation of a specified value to this instance.</summary>
-        public void Append<T>(T value)
+        public unsafe void Append<T>(T value)
         {
             if (!FormatterCache<T>.TryFormatDelegate(value, buffer.AsSpan(index), out var written, default))
             {
@@ -361,7 +362,7 @@ namespace Cysharp.Text
         /// are removed from this builder.
         /// </remarks>
         public void Replace(string oldValue, string newValue) => Replace(oldValue, newValue, 0, Length);
-        
+
         public void Replace(ReadOnlySpan<char> oldValue, ReadOnlySpan<char> newValue) => Replace(oldValue, newValue, 0, Length);
 
         /// <summary>
@@ -578,58 +579,62 @@ namespace Cysharp.Text
             index += written;
         }
 
+        static class CustomTryFormat<T>
+        {
+            public static TryFormat<T> formatMethod;
+            public static bool Dispatch(T value, Span<char> dest, out int written, ReadOnlySpan<char> format)
+            {
+                return formatMethod(value, dest, out written, format);
+            }
+        }
+
         /// <summary>
         /// Register custom formatter
         /// </summary>
         public static void RegisterTryFormat<T>(TryFormat<T> formatMethod)
         {
-            FormatterCache<T>.TryFormatDelegate = formatMethod;
+            CustomTryFormat<T>.formatMethod = formatMethod;
+            FormatterCache<T>.TryFormatDelegate = &CustomTryFormat<T>.Dispatch;
         }
 
-        static TryFormat<T?> CreateNullableFormatter<T>() where T : struct
+        static unsafe bool NullableFormat<T>(T? x, Span<char> dest, out int written, ReadOnlySpan<char> format) where T : struct
         {
-            return new TryFormat<T?>((T? x, Span<char> dest, out int written, ReadOnlySpan<char> format) =>
+            if (x == null)
             {
-                if (x == null)
-                {
-                    written = 0;
-                    return true;
-                }
-                return FormatterCache<T>.TryFormatDelegate(x.Value, dest, out written, format);
-            });
+                written = 0;
+                return true;
+            }
+            return FormatterCache<T>.TryFormatDelegate(x.Value, dest, out written, format);
         }
 
-        /// <summary>
-        /// Supports the Nullable type for a given struct type.
-        /// </summary>
-        public static void EnableNullableFormat<T>() where T : struct
+        public unsafe static class FormatterCache<T>
         {
-            RegisterTryFormat<T?>(CreateNullableFormatter<T>());
-        }
+            private static unsafe delegate*<T, Span<char>, out int, ReadOnlySpan<char>, bool> _TryFormatDelegate;
 
-        public static class FormatterCache<T>
-        {
-            public static TryFormat<T> TryFormatDelegate;
-            static FormatterCache()
+            public static delegate*<T , Span<char> , out int , ReadOnlySpan<char> , bool> TryFormatDelegate
             {
-                var formatter = (TryFormat<T>)CreateFormatter(typeof(T));
-                if (formatter == null)
+                get
                 {
-                    if (typeof(T).IsEnum)
+                    if (_TryFormatDelegate == null)
                     {
-                        formatter = new TryFormat<T>(EnumUtil<T>.TryFormatUtf16);
+                        if (typeof(T).IsEnum)
+                        {
+                            _TryFormatDelegate = &EnumUtil<T>.TryFormatUtf16;
+                        }
+                        else if (typeof(T) == typeof(string))
+                        {
+                            _TryFormatDelegate = &TryFormatString;
+                        }
+                        else
+                        {
+                            _TryFormatDelegate = &TryFormatDefault;
+                        }
                     }
-                    else if (typeof(T) == typeof(string))
-                    {
-                        formatter = new TryFormat<T>(TryFormatString);
-                    }
-                    else
-                    {
-                        formatter = new TryFormat<T>(TryFormatDefault);
-                    }
+
+                    return _TryFormatDelegate;
                 }
 
-                TryFormatDelegate = formatter;
+                set => _TryFormatDelegate = value;
             }
 
             static bool TryFormatString(T value, Span<char> dest, out int written, ReadOnlySpan<char> format)

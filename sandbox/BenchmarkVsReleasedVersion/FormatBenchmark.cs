@@ -61,13 +61,13 @@ namespace BenchmarkVsReleasedVersion
             return NZString.Format(FormatString, x, y);
         }
 
-        [BenchmarkCategory("CreatePreparedFormat"), Benchmark(Baseline = true)]
+        //[BenchmarkCategory("CreatePreparedFormat"), Benchmark(Baseline = true)]
         public object CreatePreparedFormat_()
         {
             return new Utf16PreparedFormat<int, int>(FormatString);
         }
 
-        [BenchmarkCategory("CreatePreparedFormat"), Benchmark]
+        //[BenchmarkCategory("CreatePreparedFormat"), Benchmark]
         public object CreatePreparedFormatN()
         {
             return new NewZString::Cysharp.Text.Utf16PreparedFormat<int, int>(FormatString);
@@ -85,13 +85,13 @@ namespace BenchmarkVsReleasedVersion
             return _utf16preparedFormatN.Format(x, y);
         }
 
-        [BenchmarkCategory("Utf8PreparedFormat"), Benchmark(Baseline = true)]
+        //[BenchmarkCategory("Utf8PreparedFormat"), Benchmark(Baseline = true)]
         public string Utf8PreparedFormat_()
         {
             return _utf8preparedFormat_.Format(x, y);
         }
 
-        [BenchmarkCategory("Utf8PreparedFormat"), Benchmark]
+        //[BenchmarkCategory("Utf8PreparedFormat"), Benchmark]
         public string Utf8PreparedFormatN()
         {
             return _utf8preparedFormatN.Format(x, y);
@@ -113,7 +113,7 @@ namespace BenchmarkVsReleasedVersion
             return zsh.Length;
         }
 
-        [BenchmarkCategory("Utf8StringBuilderAppendFormat"), Benchmark(Baseline = true)]
+        //[BenchmarkCategory("Utf8StringBuilderAppendFormat"), Benchmark(Baseline = true)]
         public int Utf8StringBuilderAppendFormat_()
         {
             using var zsh = ZString.CreateUtf8StringBuilder();
@@ -121,7 +121,7 @@ namespace BenchmarkVsReleasedVersion
             return zsh.Length;
         }
 
-        [BenchmarkCategory("Utf8StringBuilderAppendFormat"), Benchmark]
+        //[BenchmarkCategory("Utf8StringBuilderAppendFormat"), Benchmark]
         public int Utf8StringBuilderAppendFormatN()
         {
             using var zsh = NZString.CreateUtf8StringBuilder();

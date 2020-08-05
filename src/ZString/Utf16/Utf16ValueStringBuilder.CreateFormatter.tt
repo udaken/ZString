@@ -32,47 +32,57 @@
     };
 #>
 using System;
+using System.Runtime.CompilerServices;
 
 namespace Cysharp.Text
 {
     public partial struct Utf16ValueStringBuilder
     {
-        static object CreateFormatter(Type type)
+        static unsafe void RegisterPrimitives()
         {
 <# foreach(var t in spanFormattablesA) { #>
-            if (type == typeof(<#= t.FullName #>))
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            static bool <#= t.Name #>Func(<#= t.FullName #> x, Span<char> dest, out int written, ReadOnlySpan<char> format)
             {
-                return new TryFormat<<#= t.FullName #>>((<#= t.FullName #> x, Span<char> dest, out int written, ReadOnlySpan<char> format) => format.Length == 0 ? FastNumberWriter.TryWriteInt64(dest, out written, x) : x.TryFormat(dest, out written, format));
+                return format.Length == 0 ? FastNumberWriter.TryWriteInt64(dest, out written, x) : x.TryFormat(dest, out written, format);
             }
+            FormatterCache<<#= t.FullName #>>.TryFormatDelegate = &<#= t.Name #>Func;
+
 <# } #>
 <# foreach(var t in spanFormattablesB) { #>
-            if (type == typeof(<#= t.FullName #>))
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            static bool <#= t.Name #>Func(<#= t.FullName #> x, Span<char> dest, out int written, ReadOnlySpan<char> format)
             {
-                return new TryFormat<<#= t.FullName #>>((<#= t.FullName #> x, Span<char> dest, out int written, ReadOnlySpan<char> format) => format.Length == 0 ? FastNumberWriter.TryWriteUInt64(dest, out written, x) : x.TryFormat(dest, out written, format));
+                return format.Length == 0 ? FastNumberWriter.TryWriteUInt64(dest, out written, x) : x.TryFormat(dest, out written, format);
             }
+            FormatterCache<<#= t.FullName #>>.TryFormatDelegate = &<#= t.Name #>Func;
+
 <# } #>
 <# foreach(var t in spanFormattablesC) { #>
-            if (type == typeof(<#= t.FullName #>))
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            static bool <#= t.Name #>Func(<#= t.FullName #> x, Span<char> dest, out int written, ReadOnlySpan<char> format)
             {
-                return new TryFormat<<#= t.FullName #>>((<#= t.FullName #> x, Span<char> dest, out int written, ReadOnlySpan<char> format) => x.TryFormat(dest, out written, format));
+                return x.TryFormat(dest, out written, format);
             }
+            FormatterCache<<#= t.FullName #>>.TryFormatDelegate = &<#= t.Name #>Func;
+
 <# } #>
 <# foreach(var t in spanFormattables) { #>
-            if (type == typeof(<#= t.FullName #>?))
-            {
-                return CreateNullableFormatter<<#= t.FullName #>>();
-            }
+            FormatterCache<<#= t.FullName #>?>.TryFormatDelegate = &NullableFormat;
+
 <# } #>
-<# foreach(var t in new [] {typeof(IntPtr), typeof(UIntPtr)}) { var u = t == typeof(UIntPtr);  #>
-            if (type == typeof(<#= t.FullName #>))
+<# foreach(var t in new [] {typeof(IntPtr), typeof(UIntPtr)} ) { var u = t == typeof(UIntPtr);  #>
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            static bool <#= t.Name #>Func(<#= t.FullName #> x, Span<char> dest, out int written, ReadOnlySpan<char> format)
             {
                 // ignore format
-                return new TryFormat<<#= t.FullName #>>((<#= t.FullName #> x, Span<char> dest, out int written, ReadOnlySpan<char> _) => <#= t #>.Size == 4
+                return  <#= t #>.Size == 4
                     ? x.To<#= u ? "U" : "" #>Int32().TryFormat(dest, out written, default)
-                    : x.To<#= u ? "U" : "" #>Int64().TryFormat(dest, out written, default));
+                    : x.To<#= u ? "U" : "" #>Int64().TryFormat(dest, out written, default);
             }
+            FormatterCache<<#= t.FullName #>>.TryFormatDelegate = &<#= t.Name #>Func;
+
 <# } #>
-            return null;
         }
     }
 }
