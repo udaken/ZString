@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Buffers;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -38,7 +39,7 @@ namespace Cysharp.Text
         }
 
         [ThreadStatic]
-        static byte[] scratchBuffer;
+        static byte[]? scratchBuffer;
 
         [ThreadStatic]
         internal static bool scratchBufferUsed;
@@ -77,7 +78,7 @@ namespace Cysharp.Text
                 ThrowNestedException();
             }
 
-            byte[] buf;
+            byte[]? buf;
             if (disposeImmediately)
             {
                 buf = scratchBuffer;
@@ -109,7 +110,7 @@ namespace Cysharp.Text
                 {
                     ArrayPool<byte>.Shared.Return(buffer);
                 }
-                buffer = null;
+                buffer = null!;
                 index = 0;
                 if (disposeImmediately)
                 {
@@ -226,7 +227,7 @@ namespace Cysharp.Text
 
         /// <summary>Appends the string representation of a specified value to this instance.</summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Append(string value)
+        public void Append(string? value)
         {
 #if UNITY_2018_3_OR_NEWER
             var maxLen = UTF8NoBom.GetMaxByteCount(value.Length);
@@ -242,7 +243,7 @@ namespace Cysharp.Text
 
         /// <summary>Appends the string representation of a specified value followed by the default line terminator to the end of this instance.</summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void AppendLine(string value)
+        public void AppendLine(string? value)
         {
             Append(value);
             AppendLine();
@@ -368,11 +369,13 @@ namespace Cysharp.Text
             throw new ArgumentException("Can't format argument.", paramName);
         }
 
+        [DoesNotReturn]
         void ThrowFormatException()
         {
             throw new FormatException("Index (zero based) must be greater than or equal to zero and less than the size of the argument list.");
         }
 
+        [DoesNotReturn]
         static void ThrowNestedException()
         {
             throw new NestedStringBuilderCreationException(nameof(Utf16ValueStringBuilder));
@@ -473,7 +476,7 @@ namespace Cysharp.Text
             public static TryFormat<T> TryFormatDelegate;
             static FormatterCache()
             {
-                var formatter = (TryFormat<T>)CreateFormatter(typeof(T));
+                var formatter = (TryFormat<T>?)CreateFormatter(typeof(T));
                 if (formatter == null)
                 {
                     if (typeof(T).IsEnum)

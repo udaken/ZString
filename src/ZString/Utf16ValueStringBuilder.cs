@@ -35,7 +35,7 @@ namespace Cysharp.Text
         }
 
         [ThreadStatic]
-        static char[] scratchBuffer;
+        static char[]? scratchBuffer;
 
         [ThreadStatic]
         internal static bool scratchBufferUsed;
@@ -71,7 +71,7 @@ namespace Cysharp.Text
                 ThrowNestedException();
             }
 
-            char[] buf;
+            char[]? buf;
             if (disposeImmediately)
             {
                 buf = scratchBuffer;
@@ -103,7 +103,7 @@ namespace Cysharp.Text
                 {
                     ArrayPool<char>.Shared.Return(buffer);
                 }
-                buffer = null;
+                buffer = null!;
                 index = 0;
                 if (disposeImmediately)
                 {
@@ -198,7 +198,7 @@ namespace Cysharp.Text
 
         /// <summary>Appends the string representation of a specified value to this instance.</summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Append(string value)
+        public void Append(string? value)
         {
 #if UNITY_2018_3_OR_NEWER
             if (buffer.Length - index < value.Length)
@@ -214,7 +214,7 @@ namespace Cysharp.Text
 
         /// <summary>Appends the string representation of a specified value followed by the default line terminator to the end of this instance.</summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void AppendLine(string value)
+        public void AppendLine(string? value)
         {
             Append(value);
             AppendLine();
@@ -228,7 +228,7 @@ namespace Cysharp.Text
             {
                 Grow(value.Length);
             }
-            
+
             value.CopyTo(buffer.AsSpan(index));
             index += value.Length;
         }
@@ -275,12 +275,12 @@ namespace Cysharp.Text
         /// <param name="index">The index to insert in this builder.</param>
         /// <param name="value">The string to insert.</param>
         /// <param name="count">The number of times to insert the string.</param>
-        public void Insert(int index, string value, int count)
+        public void Insert(int index, string? value, int count)
         {
             Insert(index, value.AsSpan(), count);
         }
 
-        public void Insert(int index, string value)
+        public void Insert(int index, string? value)
         {
             Insert(index, value.AsSpan(), 1);
         }
@@ -377,8 +377,8 @@ namespace Cysharp.Text
         /// If <paramref name="newValue"/> is <c>null</c>, instances of <paramref name="oldValue"/>
         /// are removed from this builder.
         /// </remarks>
-        public void Replace(string oldValue, string newValue) => Replace(oldValue, newValue, 0, Length);
-
+        public void Replace(string oldValue, string? newValue) => Replace(oldValue, newValue, 0, Length);
+        
         public void Replace(ReadOnlySpan<char> oldValue, ReadOnlySpan<char> newValue) => Replace(oldValue, newValue, 0, Length);
 
         /// <summary>
@@ -392,7 +392,7 @@ namespace Cysharp.Text
         /// If <paramref name="newValue"/> is <c>null</c>, instances of <paramref name="oldValue"/>
         /// are removed from this builder.
         /// </remarks>
-        public void Replace(string oldValue, string newValue, int startIndex, int count)
+        public void Replace(string oldValue, string? newValue, int startIndex, int count)
         {
             if (oldValue == null)
             {
@@ -695,7 +695,7 @@ namespace Cysharp.Text
             public static TryFormat<T> TryFormatDelegate;
             static FormatterCache()
             {
-                var formatter = (TryFormat<T>)CreateFormatter(typeof(T));
+                var formatter = (TryFormat<T>?)CreateFormatter(typeof(T));
                 if (formatter == null)
                 {
                     if (typeof(T).IsEnum)

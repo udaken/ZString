@@ -38,7 +38,7 @@ namespace Cysharp.Text
         {
             if (!names.TryGetValue(value, out var v) || v == InvalidName)
             {
-                v = value.ToString();
+                v = value!.ToString();
             }
 
             written = v.Length;
@@ -49,7 +49,7 @@ namespace Cysharp.Text
         {
             if (!utf8names.TryGetValue(value, out var v) || v.Length == 0)
             {
-                v = Encoding.UTF8.GetBytes(value.ToString());
+                v = Encoding.UTF8.GetBytes(value!.ToString());
             }
 
             written = v.Length;
