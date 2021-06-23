@@ -184,14 +184,7 @@ namespace Cysharp.Text
 
         public unsafe void Append(char* value, int valueCount)
         {
-            if (buffer.Length - index < valueCount)
-            {
-                Grow(valueCount);
-            }
-
-            fixed (char* p = buffer)
-                Buffer.MemoryCopy(value, p + index, (buffer.Length - index) * sizeof(char), valueCount * sizeof(char));
-            index += valueCount;
+            Append(new ReadOnlySpan<char>(value, valueCount));
         }
 
         /// <summary>Appends the string representation of a specified value to this instance.</summary>
