@@ -574,11 +574,6 @@ namespace System
 
                         int year = cal.GetYear(dateTime);
                         tokenLen = ParseRepeatPattern(format, i, ch);
-                        if (dtfi.HasForceTwoDigitYears)
-                        {
-                            FormatDigits(ref result, year, tokenLen <= 2 ? tokenLen : 2);
-                        }
-                        else
                         {
                             if (tokenLen <= 2)
                             {
