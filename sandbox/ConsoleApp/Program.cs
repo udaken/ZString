@@ -38,9 +38,9 @@ namespace ConsoleApp
 
     public class FormatBenchmark
     {
-        int x;
-        int y;
-        string format;
+        public int x;
+        public int y;
+        public string? format;
         StringBuilder stringBuilder;
 
         public FormatBenchmark()
