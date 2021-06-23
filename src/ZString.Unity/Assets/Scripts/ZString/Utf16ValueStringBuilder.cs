@@ -53,6 +53,14 @@ namespace Cysharp.Text
         /// <summary>Get the written buffer data.</summary>
         public ArraySegment<char> AsArraySegment() => new ArraySegment<char>(buffer, 0, index);
 
+        public char this[int index]
+        {
+            get => buffer[index];
+            set => buffer[index] = value;
+        }
+
+        internal bool IsEmpty() => buffer == null;
+
         /// <summary>
         /// Initializes a new instance
         /// </summary>
@@ -89,6 +97,16 @@ namespace Cysharp.Text
             buffer = buf;
             index = 0;
             this.disposeImmediately = disposeImmediately;
+        }
+
+        public void CopyTo(int sourceIndex, char[] destination, int destinationIndex, int count)
+        {
+            Array.Copy(buffer, sourceIndex, destination, destinationIndex, count);
+        }
+
+        public void CopyTo(int sourceIndex, Span<char> destination, int count)
+        {
+            buffer.AsSpan(sourceIndex, count).CopyTo(destination);
         }
 
         /// <summary>
@@ -164,6 +182,18 @@ namespace Cysharp.Text
             }
         }
 
+        public unsafe void Append(char* value, int valueCount)
+        {
+            if (buffer.Length - index < valueCount)
+            {
+                Grow(valueCount);
+            }
+
+            fixed (char* p = buffer)
+                Buffer.MemoryCopy(value, p + index, (buffer.Length - index) * sizeof(char), valueCount * sizeof(char));
+            index += valueCount;
+        }
+
         /// <summary>Appends the string representation of a specified value to this instance.</summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Append(char value)
@@ -228,7 +258,7 @@ namespace Cysharp.Text
             {
                 Grow(value.Length);
             }
-            
+
             value.CopyTo(buffer.AsSpan(index));
             index += value.Length;
         }
