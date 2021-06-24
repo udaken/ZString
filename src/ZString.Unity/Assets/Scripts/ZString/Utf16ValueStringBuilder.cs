@@ -53,10 +53,15 @@ namespace Cysharp.Text
         /// <summary>Get the written buffer data.</summary>
         public ArraySegment<char> AsArraySegment() => new ArraySegment<char>(buffer, 0, index);
 
-        public char this[int index]
+        public ref char this[int i]
         {
-            get => buffer[index];
-            set => buffer[index] = value;
+            get
+            {
+                if (this.index <= i)
+                    throw new ArgumentOutOfRangeException(nameof(i));
+                else
+                    return ref buffer[i];
+            }
         }
 
         internal bool IsEmpty() => buffer == null;
@@ -106,6 +111,12 @@ namespace Cysharp.Text
 
         public void CopyTo(int sourceIndex, Span<char> destination, int count)
         {
+            if (sourceIndex > this.index)
+                throw new ArgumentOutOfRangeException(nameof(sourceIndex));
+
+            if ((sourceIndex + count) > this.index)
+                throw new ArgumentOutOfRangeException(nameof(count));
+
             buffer.AsSpan(sourceIndex, count).CopyTo(destination);
         }
 

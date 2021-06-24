@@ -553,11 +553,32 @@ namespace System
                         {
                             if ((dtfi.FormatFlags & DateTimeFormatFlags.UseGenitiveMonth) != 0)
                             {
+        //internal string InternalGetMonthName(int month, MonthNameStyles style, bool abbreviated)
+        //{
+        //    string[] monthNamesArray = style switch
+        //    {
+        //        MonthNameStyles.Genitive => InternalGetGenitiveMonthNames(abbreviated),
+        //        MonthNameStyles.LeapYear => InternalGetLeapYearMonthNames(),
+        //        _ => (abbreviated ? InternalGetAbbreviatedMonthNames() : InternalGetMonthNames()),
+        //    };
+ 
+        //    // The month range is from 1 ~ m_monthNames.Length
+        //    // (actually is 13 right now for all cases)
+        //    if ((month < 1) || (month > monthNamesArray.Length))
+        //    {
+        //        throw new ArgumentOutOfRangeException(
+        //            nameof(month),
+        //            month,
+        //            SR.Format(SR.ArgumentOutOfRange_Range, 1, monthNamesArray.Length));
+        //    }
+ 
+        //    return monthNamesArray[month - 1];
+        //}
+                                var abbreviated = tokenLen == 3;
+                                MonthNameStyles style = IsUseGenitiveForm(format, i, tokenLen, 'd') ? MonthNameStyles.Genitive : MonthNameStyles.Regular;
+
                                 result.Append(
-                                    dtfi.InternalGetMonthName(
-                                        month,
-                                        IsUseGenitiveForm(format, i, tokenLen, 'd') ? MonthNameStyles.Genitive : MonthNameStyles.Regular,
-                                        tokenLen == 3));
+                                    dtfi.GetMonthName(month,style, abbreviated));
                             }
                             else
                             {
